@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CricBid - Cricket Auction Platform</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color:#66bdda;
+      margin: 0;
+      padding: 0;
+
+    }
+    .active-tab {
+      border-bottom: 3px solid #047857;
+      color: #047857;
+      font-weight: 600;
+    }
+    
+    .inactive-tab {
+      border-bottom: 3px solid transparent;
+      color: #6B7280;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .login-bg {
+      background-image: url('/api/placeholder/1920/1080');
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen">
+  <!-- Header Navigation -->
+  <header class="bg-green-700 text-white shadow-lg">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center">
+        <i class="fas fa-cricket text-2xl mr-2"></i>
+        <h1 class="text-xl font-bold">CricBid</h1>
+      </div>
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="#" class="hover:text-green-200 transition">Home</a>
+        <a href="#" class="hover:text-green-200 transition">About</a>
+        <a href="#" class="hover:text-green-200 transition">Help</a>
+        <a href="#" class="hover:text-green-200 transition">Contact</a>
+      </div>
+      <div>
+        <button class="md:hidden">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Login Section -->
+  <div class="container mx-auto px-4 py-12 flex flex-col md:flex-row">
+    <!-- Left Panel - Info -->
+    <div class="md:w-1/2 mb-8 md:mb-0 pr-0 md:pr-8">
+      <div class="bg-green-700 text-white p-8 rounded-lg shadow-lg">
+        <div class="mb-6">
+          <h2 class="text-3xl font-bold mb-4">Welcome to CricBid</h2>
+          <p class="text-green-100 mb-4">The ultimate cricket auction platform for managing team selections and player bids in real-time.</p>
+        </div>
+        
+        <div class="mb-6">
+          <h3 class="text-xl font-semibold mb-3">Platform Features</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center">
+              <i class="fas fa-check-circle mr-2 text-green-300"></i>
+              <span>Live auction tracking with real-time bidding</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle mr-2 text-green-300"></i>
+              <span>Comprehensive player statistics and profiles</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle mr-2 text-green-300"></i>
+              <span>Team budget management and composition analytics</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle mr-2 text-green-300"></i>
+              <span>Multi-team auction rooms with secure access</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="login-bg h-48 rounded-lg mb-6"></div>
+        
+        <div>
+          <p class="text-sm text-green-200">Need help? Contact our support team at support@cricbid.com</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right Panel - Login/Register Forms -->
+    <div class="md:w-1/2">
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <!-- Tabs -->
+        <div class="flex">
+          <button id="login-tab" class="w-1/2 py-4 text-center active-tab">User Login</button>
+        
+          <button id="register-tab" class="w-1/2 py-4 text-center inactive-tab">Team Registration</button>
+        </div>
+        
+        <!-- Login Form -->
+        <div id="login-content" class="tab-content active p-8">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Sign in to your account</h2>
+          
+          <form id="login-form">
+            <div class="mb-6">
+              <label for="email" class="block mb-2 text-sm font-medium text-gray-700">Email Address</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="name@example.com" required>
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Password</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                  <i class="fas fa-lock"></i>
+                </div>
+                <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="••••••••" required>
+              </div>
+            </div>
+            
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center">
+                <input id="remember-me" type="checkbox" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500">
+                <label for="remember-me" class="ml-2 text-sm text-gray-700">Remember me</label>
+              </div>
+              <a href="#" class="text-sm font-medium text-green-600 hover:underline">Forgot password?</a>
+            </div>
+            
+            <button type="button" onclick="window.location.href='stage01.html';" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-3 text-center transition">Sign in</button>
+        
+            <button onclick="stage01.html" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-3 text-center transition mt-4">Continue as Guest</button>
+          </form>
+          
+          <div class="mt-6 text-center">
+            <p class="text-sm text-gray-600">Or sign in with</p>
+            <div class="flex justify-center space-x-4 mt-3">
+              <button class="flex items-center justify-center bg-blue-600 text-white rounded-lg px-4 py-2 w-full max-w-xs hover:bg-blue-700 transition">
+                <i class="fab fa-facebook-f mr-2"></i> Facebook
+              </button>
+              <button class="flex items-center justify-center bg-blue-400 text-white rounded-lg px-4 py-2 w-full max-w-xs hover:bg-blue-500 transition">
+                <i class="fab fa-twitter mr-2"></i> Twitter
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Registration Form -->
+        <div id="register-content" class="tab-content p-8">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Register Your Team</h2>
+          
+          <form id="register-form">
+            <div class="mb-6">
+              <label for="team-name" class="block mb-2 text-sm font-medium text-gray-700">Team Name</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                  <i class="fas fa-users"></i>
+                </div>
+                <input type="text" id="team-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="Mumbai Indians" required>
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <label for="owner-name" class="block mb-2 text-sm font-medium text-gray-700">Owner Name</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                  <i class="fas fa-user"></i>
+                </div>
+                <input type="text" id="owner-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="Your name" required>
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <label for="reg-email" class="block mb-2 text-sm font-medium text-gray-700">Email Address</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <input type="email" id="reg-email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="name@example.com" required>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label for="phone" class="block mb-2 text-sm font-medium text-gray-700">Phone Number</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="+91 9876543210" required>
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <label for="reg-password" class="block mb-2 text-sm font-medium text-gray-700">Create Password</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                  <i class="fas fa-lock"></i>
+                </div>
+                <input type="password" id="reg-password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="••••••••" required>
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-700">Confirm Password</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                  <i class="fas fa-lock"></i>
+                </div>
+                <input type="password" id="confirm-password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="••••••••" required>
+              </div>
+            </div>
+            
+            <div class="flex items-start mb-6">
+              <div class="flex items-center h-5">
+                <input id="terms" type="checkbox" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500" required>
+              </div>
+              <label for="terms" class="ml-2 text-sm text-gray-700">I agree to the <a href="#" class="text-green-600 hover:underline">terms and conditions</a></label>
+            </div>
+            
+            <button type="submit" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-3 text-center transition">Register Team</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6 mt-12">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <div class="flex items-center">
+            <i class="fas fa-cricket text-2xl mr-2"></i>
+            <h2 class="text-xl font-bold">CricBid</h2>
+          </div>
+          <p class="text-gray-400 text-sm mt-1">© 2025 CricBid. All rights reserved.</p>
+        </div>
+        
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Utility functions
+    const validateEmail = (email) => {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    };
+
+    const validatePassword = (password) => {
+      // At least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character
+      const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return re.test(password);
+    };
+
+    const validatePhone = (phone) => {
+      // Basic phone validation (can be adjusted based on requirements)
+      const re = /^\+?[\d\s-]{10,}$/;
+      return re.test(phone);
+    };
+
+    const showError = (message) => {
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4';
+      errorDiv.innerHTML = `
+        <span class="block sm:inline">${message}</span>
+        <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+          <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <title>Close</title>
+            <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
+          </svg>
+        </span>
+      `;
+      return errorDiv;
+    };
+
+    // Session management
+    const sessionManager = {
+      setSession: (userData) => {
+        const sessionData = {
+          ...userData,
+          loginTime: new Date().toISOString(),
+          sessionId: Math.random().toString(36).substring(2)
+        };
+        sessionStorage.setItem('cricbid_session', JSON.stringify(sessionData));
+      },
+
+      getSession: () => {
+        const session = sessionStorage.getItem('cricbid_session');
+        return session ? JSON.parse(session) : null;
+      },
+
+      clearSession: () => {
+        sessionStorage.removeItem('cricbid_session');
+      },
+
+      isSessionValid: () => {
+        const session = this.getSession();
+        if (!session) return false;
+        
+        // Check if session is less than 24 hours old
+        const loginTime = new Date(session.loginTime);
+        const now = new Date();
+        const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+        return hoursDiff < 24;
+      }
+    };
+
+    // Tab switching functionality
+    const loginTab = document.getElementById('login-tab');
+    const registerTab = document.getElementById('register-tab');
+    const loginContent = document.getElementById('login-content');
+    const registerContent = document.getElementById('register-content');
+
+    loginTab.addEventListener('click', () => {
+      loginTab.classList.add('active-tab');
+      loginTab.classList.remove('inactive-tab');
+      registerTab.classList.add('inactive-tab');
+      registerTab.classList.remove('active-tab');
+      loginContent.classList.add('active');
+      registerContent.classList.remove('active');
+    });
+
+    registerTab.addEventListener('click', () => {
+      registerTab.classList.add('active-tab');
+      registerTab.classList.remove('inactive-tab');
+      loginTab.classList.add('inactive-tab');
+      loginTab.classList.remove('active-tab');
+      registerContent.classList.add('active');
+      loginContent.classList.remove('active');
+    });
+
+    // Login form handling
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Clear previous errors
+      const errorContainer = loginContent.querySelector('.error-container');
+      if (errorContainer) errorContainer.remove();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const rememberMe = document.getElementById('remember-me').checked;
+      
+      // Validation
+      if (!email || !password) {
+        const errorDiv = showError('Please fill in all fields');
+        loginContent.insertBefore(errorDiv, loginForm);
+        return;
+      }
+
+      if (!validateEmail(email)) {
+        const errorDiv = showError('Please enter a valid email address');
+        loginContent.insertBefore(errorDiv, loginForm);
+        return;
+      }
+
+      try {
+        // Simulate API call
+        // In a real application, this would be an actual API call
+        const response = await new Promise((resolve) => {
+          setTimeout(() => {
+            // Simulate successful login
+            resolve({
+              success: true,
+              user: {
+                email,
+                name: 'Test User',
+                role: 'team_owner'
+              }
+            });
+          }, 1000);
+        });
+
+        if (response.success) {
+          // Store session data
+          sessionManager.setSession({
+            user: response.user,
+            rememberMe
+          });
+
+          // If remember me is checked, store in localStorage
+          if (rememberMe) {
+            localStorage.setItem('cricbid_remembered_user', email);
+          } else {
+            localStorage.removeItem('cricbid_remembered_user');
+          }
+
+          // Redirect to main page
+          window.location.href = 'stage1.html';
+        } else {
+          throw new Error('Invalid credentials');
+        }
+      } catch (error) {
+        const errorDiv = showError(error.message || 'Login failed. Please try again.');
+        loginContent.insertBefore(errorDiv, loginForm);
+      }
+    });
+
+    // Registration form handling
+    const registerForm = document.getElementById('register-form');
+    registerForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Clear previous errors
+      const errorContainer = registerContent.querySelector('.error-container');
+      if (errorContainer) errorContainer.remove();
+      
+      const teamName = document.getElementById('team-name').value;
+      const ownerName = document.getElementById('owner-name').value;
+      const email = document.getElementById('reg-email').value;
+      const phone = document.getElementById('phone').value;
+      const password = document.getElementById('reg-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      const terms = document.getElementById('terms').checked;
+      
+      // Validation
+      if (!teamName || !ownerName || !email || !phone || !password || !confirmPassword) {
+        const errorDiv = showError('Please fill in all fields');
+        registerContent.insertBefore(errorDiv, registerForm);
+        return;
+      }
+
+      if (!validateEmail(email)) {
+        const errorDiv = showError('Please enter a valid email address');
+        registerContent.insertBefore(errorDiv, registerForm);
+        return;
+      }
+
+      if (!validatePhone(phone)) {
+        const errorDiv = showError('Please enter a valid phone number');
+        registerContent.insertBefore(errorDiv, registerForm);
+        return;
+      }
+
+      if (!validatePassword(password)) {
+        const errorDiv = showError('Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character');
+        registerContent.insertBefore(errorDiv, registerForm);
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        const errorDiv = showError('Passwords do not match');
+        registerContent.insertBefore(errorDiv, registerForm);
+        return;
+      }
+
+      if (!terms) {
+        const errorDiv = showError('Please agree to the terms and conditions');
+        registerContent.insertBefore(errorDiv, registerForm);
+        return;
+      }
+
+      try {
+        // Simulate API call
+        // In a real application, this would be an actual API call
+        const response = await new Promise((resolve) => {
+          setTimeout(() => {
+            // Simulate successful registration
+            resolve({
+              success: true,
+              user: {
+                email,
+                name: ownerName,
+                team: teamName,
+                role: 'team_owner'
+              }
+            });
+          }, 1000);
+        });
+
+        if (response.success) {
+          // Store session data
+          sessionManager.setSession({
+            user: response.user,
+            rememberMe: false
+          });
+
+          // Redirect to main page
+          window.location.href = 'stage1.html';
+        } else {
+          throw new Error('Registration failed');
+        }
+      } catch (error) {
+        const errorDiv = showError(error.message || 'Registration failed. Please try again.');
+        registerContent.insertBefore(errorDiv, registerForm);
+      }
+    });
+
+    // Check for remembered user on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      const rememberedUser = localStorage.getItem('cricbid_remembered_user');
+      if (rememberedUser) {
+        document.getElementById('email').value = rememberedUser;
+        document.getElementById('remember-me').checked = true;
+      }
+
+      // Check if user is already logged in
+      if (sessionManager.isSessionValid()) {
+        window.location.href = 'stage1.html';
+      }
+    });
+  </script>
+</body>
+</html>
